@@ -1,0 +1,15 @@
+meta {
+  name: Test Auth Required - No Token
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/api/test-auth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Validate Email
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:5000/auth/validate-email
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

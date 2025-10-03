@@ -1,0 +1,15 @@
+meta {
+  name: Test Optional Auth - No Token
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base-url}}/api/test-optional-auth
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

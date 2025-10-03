@@ -1,55 +1,62 @@
 # Planventure API 🚁
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/github-samples/planventure)
+A Flask-based REST API backend for trip planning and management.
 
-A Flask-based REST API backend for the Planventure application.
+## ✅ Completed Features
 
-## Prerequisites
-Before you begin, ensure you have the following:
+- **User Authentication**: Registration, login with JWT tokens
+- **Password Security**: bcrypt hashing with salt
+- **Protected Routes**: Middleware for required/optional authentication
+- **Database Models**: User and Trip models with relationships
+- **API Testing**: Complete Bruno collection for testing
+- **Email Validation**: Regex-based email format validation
+- **Error Handling**: Comprehensive error responses
 
-- A GitHub account - [sign up for FREE](https://github.com)
-- Access to GitHub Copilot - [sign up for FREE](https://gh.io/gfb-copilot)!
-- A Code Editor - [VS Code](https://code.visualstudio.com/download) is recommended
-- API Client (like [Bruno](https://github.com/usebruno/bruno))
-- Git - [Download & Install Git](https://git-scm.com/downloads)
+## 🚀 API Endpoints
 
-## 🚀 Getting Started
+### Authentication
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User login
+- `POST /auth/validate-email` - Email validation
 
-## Build along in a Codespace
+### Protected Routes
+- `GET /api/profile` - Get user profile (auth required)
+- `PUT /api/profile` - Update profile (auth required)
+- `GET /api/public-data` - Public data with optional auth enhancements
+- `GET /api/test-auth` - Test authentication (auth required)
+- `GET /api/test-auth-optional` - Test optional authentication
 
-1. Click the "Open in GitHub Codespaces" button above to start developing in a GitHub Codespace.
+## 🛠️ Technology Stack
 
-### Local Development Setup
+- **Backend**: Flask, SQLAlchemy, Flask-JWT-Extended
+- **Database**: SQLite (development)
+- **Security**: bcrypt, JWT tokens
+- **Testing**: Bruno API Client
+- **Environment**: Python virtual environment
 
-If you prefer to develop locally, follow the steps below:
+## 📚 Getting Started
 
-1.Fork and clone the repository and navigate to the [planventue-api](/planventure-api/) directory:
-```sh
-cd planventure-api
+See the [planventure-api README](./planventure-api/README.md) for detailed setup instructions.
+
+## 🔗 Project Structure
+
+```
+planventure/
+├── planventure-api/          # Flask API backend
+│   ├── models/              # Database models
+│   ├── routes/              # API route blueprints
+│   ├── utils/               # Utilities and middleware
+│   ├── app.py               # Main Flask application
+│   └── requirements.txt     # Python dependencies
+└── README.md               # This file
 ```
 
-2. Create a virtual environment and activate it:
-```sh
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+## 🎯 Next Steps
 
-3. Install the required dependencies:
-```sh
-pip install -r requirements.txt
-```
-
-4. Create an `.env` file based on [.sample.env](/planventure-api/.sample.env):
-```sh
-cp .sample.env .env
-```
-
-5. Start the Flask development server:
-```sh
-flask run
-```
-
-## 📚 API Endpoints
+- [ ] Trip CRUD operations
+- [ ] Trip sharing functionality
+- [ ] Itinerary management
+- [ ] React frontend integration
 - GET / - Welcome message
 - GET /health - Health check endpoint
 

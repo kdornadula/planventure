@@ -1,0 +1,42 @@
+meta {
+  name: User Login
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base-url}}/auth/login
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+    "email": "gaya@example.com",
+    "password": "test1234"
+  }
+}
+
+tests {
+  if (res.status === 200) {
+    const data = JSON.parse(res.body);
+    if (data.tokens && data.tokens.access_token) {
+      bru.setEnvVar("access_token", data.tokens.access_token);
+      // This should show in response somewhere
+      alert("Token saved successfully!");
+    } else {
+      alert("No tokens found in response!");
+    }
+  } else {
+    alert("Login failed with status: " + res.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+}
