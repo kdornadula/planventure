@@ -15,11 +15,13 @@ A Flask-based REST API backend for trip planning and management.
 ## 🚀 API Endpoints
 
 ### Authentication
+
 - `POST /auth/register` - User registration
 - `POST /auth/login` - User login
 - `POST /auth/validate-email` - Email validation
 
 ### Protected Routes
+
 - `GET /api/profile` - Get user profile (auth required)
 - `PUT /api/profile` - Update profile (auth required)
 - `GET /api/public-data` - Public data with optional auth enhancements

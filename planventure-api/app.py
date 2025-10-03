@@ -59,6 +59,10 @@ try:
     app.register_blueprint(protected_bp)
     print("✅ Protected routes registered successfully")
     
+    from routes.trips import trips_bp
+    app.register_blueprint(trips_bp)
+    print("✅ Trips routes registered successfully")
+    
 except ImportError as e:
     print(f"❌ Warning: Could not import routes: {e}")
 
