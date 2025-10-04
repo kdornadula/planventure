@@ -30,6 +30,10 @@ A Flask-based REST API backend for trip planning and management with JWT authent
 - **Delete Trips** with proper authorization
 - **Search Trips** by destination, date range, and other criteria
 - **Itinerary Management** with JSON storage for trip details
+- **Smart Itinerary Templates** with automatic generation based on destination, dates, and trip type
+- **City-Specific Recommendations** for popular destinations (Paris, London, Tokyo)
+- **Multiple Template Types** (leisure, business, adventure, cultural, weekend getaway)
+- **Packing Checklists** generated based on trip type and duration
 
 ### 🔧 Development Tools
 
@@ -38,6 +42,8 @@ A Flask-based REST API backend for trip planning and management with JWT authent
 - **API Testing** with complete Bruno collection
 - **Environment Configuration** with secure secret generation
 - **Route Debugging** with endpoint listing
+- **Comprehensive Code Documentation** with detailed comments
+- **Health Monitoring** with multiple diagnostic endpoints
 
 ## 🚀 API Endpoints
 
@@ -52,24 +58,30 @@ POST   /auth/validate-email     - Email format validation
 ### Trip Management Routes
 
 ```
-POST   /trips                   - Create new trip
-GET    /trips                   - Get user's trips (with pagination)
-GET    /trips/<id>              - Get specific trip by ID
-PUT    /trips/<id>              - Update specific trip
-DELETE /trips/<id>              - Delete specific trip
-GET    /trips/search            - Search trips by criteria
+POST   /trips                              - Create new trip
+GET    /trips                              - Get user's trips (with pagination)
+GET    /trips/<id>                         - Get specific trip by ID
+PUT    /trips/<id>                         - Update specific trip
+DELETE /trips/<id>                         - Delete specific trip
+GET    /trips/search                       - Search trips by criteria
+GET    /trips/template                     - Generate default itinerary template
+GET    /trips/template/weekend             - Generate weekend getaway template
+GET    /trips/template/business            - Generate business trip template
+GET    /trips/suggestions/<destination>    - Get destination-specific activity suggestions
 ```
 
 ### Testing & Utility Routes
 
 ```
-GET    /                        - Welcome message
-GET    /health                  - Health check
-GET    /routes                  - List all available routes
-GET    /api/profile             - User profile (protected)
-GET    /api/test-auth           - Test authentication
-GET    /api/test-auth-optional  - Test optional authentication
-GET    /api/public-data         - Public data with auth enhancements
+GET    /                                   - Welcome message
+GET    /health                             - Comprehensive health check with system status
+GET    /health/simple                      - Simple health check for basic monitoring
+GET    /health/database                    - Database connectivity check
+GET    /routes                             - List all available routes
+GET    /api/profile                        - User profile (protected)
+GET    /api/test-auth                      - Test authentication
+GET    /api/test-auth-optional             - Test optional authentication
+GET    /api/public-data                    - Public data with auth enhancements
 ```
 
 ## 🛠️ Technology Stack
@@ -124,11 +136,10 @@ GET    /api/public-data         - Public data with auth enhancements
    ```
 
 6. **Start the server**
+
    ```bash
    python app.py
    ```
-
-The API will be available at `http://localhost:5000`
 
 ### Testing with Bruno
 
@@ -178,6 +189,20 @@ GET /trips/search?destination=Paris&start_date=2024-06-01&end_date=2024-12-31
 Authorization: Bearer <jwt_token>
 ```
 
+### Get Itinerary Template
+
+```bash
+GET /trips/template?destination=Paris, France&start_date=2024-06-01&end_date=2024-06-05&trip_type=leisure
+Authorization: Bearer <jwt_token>
+```
+
+### Get City Suggestions
+
+```bash
+GET /trips/suggestions/Paris
+Authorization: Bearer <jwt_token>
+```
+
 ## 🔧 Project Structure
 
 ```
@@ -195,7 +220,8 @@ planventure/
 │   ├── utils/                    # Utilities and middleware
 │   │   ├── __init__.py
 │   │   ├── auth.py              # JWT token utilities
-│   │   └── middleware.py        # Authentication middleware
+│   │   ├── middleware.py        # Authentication middleware
+│   │   └── itinerary_templates.py # Template generation functions
 │   ├── bruno-api-tests/          # Bruno API testing collection
 │   ├── app.py                    # Main Flask application
 │   ├── requirements.txt          # Python dependencies
@@ -213,9 +239,10 @@ planventure/
 - **Email Validation** with regex pattern matching
 - **Route Protection** with authentication middleware
 - **User Authorization** ensuring users can only access their own data
-- **CORS Protection** with configurable origins
+- **CORS Protection** with configurable origins for React frontend
 - **Environment Variables** for sensitive configuration
 - **Input Validation** with comprehensive error handling
+- **Health Monitoring** with multiple health check endpoints
 
 ## 🧪 Testing
 
@@ -223,20 +250,24 @@ The project includes a comprehensive Bruno API testing collection with:
 
 - **Authentication flow testing** (register, login, token management)
 - **CRUD operations testing** for trips
+- **Template generation testing** for itinerary creation
 - **Error handling verification**
 - **Authorization testing** (protected routes)
 - **Automated JWT token management**
+- **Health check endpoint testing**
 
 ## 🎯 Future Enhancements
 
 - [ ] Trip sharing and collaboration features
-- [ ] Advanced itinerary planning with activities
-- [ ] Photo and document attachments
-- [ ] Trip recommendations and suggestions
-- [ ] Real-time collaboration features
-- [ ] Mobile app integration
-- [ ] Social features (trip reviews, ratings)
-- [ ] Integration with travel APIs (flights, hotels)
+- [ ] Advanced itinerary planning with time slots and activities
+- [ ] Photo and document attachments for trips
+- [ ] AI-powered trip recommendations based on user preferences
+- [ ] Real-time collaboration features for group trips
+- [ ] Mobile app integration with push notifications
+- [ ] Social features (trip reviews, ratings, sharing)
+- [ ] Integration with travel APIs (flights, hotels, weather)
+- [ ] Expense tracking and budget management
+- [ ] Offline trip access and synchronization
 
 ## 🤝 Contributing
 
