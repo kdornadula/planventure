@@ -7,6 +7,7 @@ from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 from models.user import db
 from models.trip import Trip  # Import to ensure table creation
+from sqlalchemy import text
 
 # Load environment variables from .env file for secure configuration
 load_dotenv()
@@ -78,8 +79,8 @@ def health_check():
         - Used for monitoring, load balancers, and deployment verification
     """
     try:
-        # Test database connectivity
-        db.session.execute('SELECT 1')
+        # Test database connectivity - fix the SQL syntax
+        db.session.execute(text('SELECT 1'))
         db_status = "connected"
         db_healthy = True
     except Exception as e:
@@ -128,8 +129,8 @@ def simple_health_check():
 def database_health_check():
     """Specific database connectivity check"""
     try:
-        # Test database with a simple query
-        result = db.session.execute('SELECT COUNT(*) FROM users')
+        # Test database with a simple query - fix syntax here too
+        result = db.session.execute(text('SELECT COUNT(*) FROM users'))
         user_count = result.scalar()
         
         return jsonify({
