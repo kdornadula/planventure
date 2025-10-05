@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/planventure/static/css/main.e6c13ad2.css",
+    "main.js": "/planventure/static/js/main.88bfbe1f.js",
+    "static/js/453.4985c009.chunk.js": "/planventure/static/js/453.4985c009.chunk.js",
+    "index.html": "/planventure/index.html",
+    "main.e6c13ad2.css.map": "/planventure/static/css/main.e6c13ad2.css.map",
+    "main.88bfbe1f.js.map": "/planventure/static/js/main.88bfbe1f.js.map",
+    "453.4985c009.chunk.js.map": "/planventure/static/js/453.4985c009.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.88bfbe1f.js"
+  ]
+}
