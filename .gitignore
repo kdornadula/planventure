@@ -183,3 +183,19 @@ cython_debug/
 # Database files
 *.db
 planventure.db
+
+# Documentation folder (keep local only)
+docs/
+
+# Specific doc files to ignore
+*.pdf
+presentation-slides.md
+blog-post.md
+blog-post-pdf.md
+copilot-chat-archive.md
+development-journal.md
+
+# Alternative: Keep some docs but ignore others
+# docs/copilot-chat-archive.md
+# docs/presentation-slides.md
+# docs/*.pdf

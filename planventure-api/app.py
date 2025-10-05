@@ -27,7 +27,7 @@ jwt = JWTManager(app)  # JWT token management
 
 # Enhanced CORS configuration for React frontend
 CORS(app, 
-     origins=os.getenv('CORS_ORIGINS', 'http://localhost:3000').split(','),
+     origins=os.getenv('CORS_ORIGINS', 'https://kdornadula.github.io,http://localhost:3000').split(','),
      methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
      allow_headers=['Content-Type', 'Authorization'],
      supports_credentials=True)
