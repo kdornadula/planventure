@@ -135,16 +135,33 @@ const Dashboard = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 2, px: { xs: 1, sm: 3 } }}>
       {/* Welcome Header */}
-      <Paper sx={{ p: 3, mb: 4 }}>
+      <Paper sx={{ p: { xs: 2, sm: 3 }, mb: { xs: 2, sm: 4 } }}>
         <Box display="flex" alignItems="center" mb={2}>
-          <Flight sx={{ fontSize: 40, color: "primary.main", mr: 2 }} />
+          <Flight
+            sx={{
+              fontSize: { xs: 30, sm: 40 },
+              color: "primary.main",
+              mr: { xs: 1, sm: 2 },
+            }}
+          />
           <Box>
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography
+              variant="h4"
+              component="h1"
+              gutterBottom
+              sx={{
+                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.125rem" },
+              }}
+            >
               Welcome back, {user?.email_address?.split("@")[0]}!
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+            >
               Ready to plan your next adventure?
             </Typography>
           </Box>
@@ -165,14 +182,22 @@ const Dashboard = () => {
           justifyContent="space-between"
           alignItems="center"
           mb={3}
+          flexDirection={{ xs: "column", sm: "row" }}
+          gap={{ xs: 2, sm: 0 }}
         >
-          <Typography variant="h5" component="h2">
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{ fontSize: { xs: "1.25rem", sm: "1.5rem" } }}
+          >
             Your Trips
           </Typography>
           <Button
             variant="contained"
             startIcon={<Add />}
             onClick={() => navigate("/trips/create")}
+            fullWidth={{ xs: true, sm: false }}
+            sx={{ minWidth: { sm: "auto" } }}
           >
             Create New Trip
           </Button>
@@ -209,20 +234,18 @@ const Dashboard = () => {
           </Paper>
         ) : (
           /* Trips Grid */
-          <Grid container spacing={3}>
+          <Grid container spacing={{ xs: 2, sm: 3 }}>
             {trips.map((trip) => (
-              <Grid item xs={12} sm={6} md={4} key={trip.id}>
+              <Grid item xs={12} sm={6} lg={4} key={trip.id}>
                 <Card
                   sx={{
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    "&:hover": {
-                      boxShadow: 4,
-                    },
+                    "&:hover": { boxShadow: 4 },
                   }}
                 >
-                  <CardContent sx={{ flexGrow: 1 }}>
+                  <CardContent sx={{ flexGrow: 1, p: { xs: 2, sm: 3 } }}>
                     {/* Trip Destination */}
                     <Typography variant="h6" component="h3" gutterBottom>
                       {trip.destination}
@@ -264,18 +287,33 @@ const Dashboard = () => {
                   </CardContent>
 
                   {/* Card Actions */}
-                  <CardActions sx={{ justifyContent: "space-between" }}>
+                  <CardActions
+                    sx={{
+                      justifyContent: "space-between",
+                      flexDirection: { xs: "column", sm: "row" },
+                      gap: { xs: 1, sm: 0 },
+                      p: { xs: 2, sm: 1 },
+                    }}
+                  >
                     <Button
                       size="small"
                       onClick={() => navigate(`/trips/${trip.id}`)}
+                      fullWidth={{ xs: true, sm: false }}
                     >
                       View Details
                     </Button>
-                    <Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 1,
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                    >
                       <Button
                         size="small"
                         startIcon={<Edit />}
                         onClick={() => navigate(`/trips/${trip.id}/edit`)}
+                        sx={{ flex: { xs: 1, sm: "none" } }}
                       >
                         Edit
                       </Button>
@@ -286,7 +324,7 @@ const Dashboard = () => {
                         onClick={() =>
                           handleDeleteTrip(trip.id, trip.destination)
                         }
-                        sx={{ ml: 1 }}
+                        sx={{ flex: { xs: 1, sm: "none" } }}
                       >
                         Delete
                       </Button>
@@ -305,8 +343,8 @@ const Dashboard = () => {
         aria-label="add trip"
         sx={{
           position: "fixed",
-          bottom: 16,
-          right: 16,
+          bottom: { xs: 16, sm: 24 },
+          right: { xs: 16, sm: 24 },
           display: { xs: "flex", sm: "none" },
         }}
         onClick={() => navigate("/trips/create")}

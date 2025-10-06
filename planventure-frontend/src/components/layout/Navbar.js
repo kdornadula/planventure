@@ -6,14 +6,16 @@ import {
   Button,
   Box,
   IconButton,
+  Menu,
 } from "@mui/material";
-import { Flight, ExitToApp } from "@mui/icons-material";
+import { Flight, ExitToApp, Menu as MenuIcon } from "@mui/icons-material";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [mobileMenuAnchor, setMobileMenuAnchor] = React.useState(null);
 
   const handleLogout = () => {
     logout();
@@ -28,31 +30,42 @@ const Navbar = () => {
     navigate(isAuthenticated() ? "/dashboard" : "/");
   };
 
-  return (
-    <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
-      <Toolbar>
-        {/* Logo and App Name */}
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="home"
-          onClick={handleHome}
-          sx={{ mr: 2 }}
-        >
-          <Flight />
-        </IconButton>
+  const handleMobileMenuOpen = (event) => {
+    setMobileMenuAnchor(event.currentTarget);
+  };
 
+  const handleMobileMenuClose = () => {
+    setMobileMenuAnchor(null);
+  };
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
         <Typography
           variant="h6"
           component="div"
-          sx={{ flexGrow: 1, cursor: "pointer" }}
-          onClick={handleHome}
+          sx={{
+            flexGrow: 1,
+            fontSize: { xs: "1rem", sm: "1.25rem" }, // Smaller font on mobile
+          }}
         >
+          <Flight sx={{ mr: 1, verticalAlign: "middle" }} />
           Planventure
         </Typography>
 
-        {/* Navigation Items */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        {/* Mobile Menu */}
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+        </Box>
+
+        {/* Desktop Menu */}
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
           {isAuthenticated() ? (
             <>
               {/* Authenticated User Menu */}
@@ -60,16 +73,29 @@ const Navbar = () => {
                 Welcome, {user?.email_address}
               </Typography>
 
-              <Button color="inherit" onClick={() => navigate("/dashboard")}>
+              <Button
+                color="inherit"
+                component={Link}
+                to="/dashboard"
+                sx={{ mx: 1, minWidth: "auto" }}
+              >
                 Dashboard
               </Button>
 
-              <Button color="inherit" onClick={() => navigate("/trips")}>
+              <Button
+                color="inherit"
+                onClick={() => navigate("/trips")}
+                sx={{ mx: 1, minWidth: "auto" }}
+              >
                 My Trips
               </Button>
 
               {/* Home Button for authenticated users */}
-              <Button color="inherit" onClick={() => navigate("/")}>
+              <Button
+                color="inherit"
+                onClick={() => navigate("/")}
+                sx={{ mx: 1, minWidth: "auto" }}
+              >
                 Home
               </Button>
 
@@ -77,6 +103,7 @@ const Navbar = () => {
                 color="inherit"
                 startIcon={<ExitToApp />}
                 onClick={handleLogout}
+                sx={{ mx: 1, minWidth: "auto" }}
               >
                 Logout
               </Button>
@@ -84,11 +111,19 @@ const Navbar = () => {
           ) : (
             <>
               {/* Guest Menu */}
-              <Button color="inherit" onClick={() => navigate("/")}>
+              <Button
+                color="inherit"
+                onClick={() => navigate("/")}
+                sx={{ mx: 1, minWidth: "auto" }}
+              >
                 Home
               </Button>
 
-              <Button color="inherit" onClick={handleLogin}>
+              <Button
+                color="inherit"
+                onClick={handleLogin}
+                sx={{ mx: 1, minWidth: "auto" }}
+              >
                 Login
               </Button>
 
@@ -110,6 +145,16 @@ const Navbar = () => {
             </>
           )}
         </Box>
+
+        {/* Mobile Menu Drawer */}
+        <Menu
+          anchorEl={mobileMenuAnchor}
+          open={Boolean(mobileMenuAnchor)}
+          onClose={handleMobileMenuClose}
+          sx={{ display: { xs: "block", md: "none" } }}
+        >
+          {/* Mobile menu items */}
+        </Menu>
       </Toolbar>
     </AppBar>
   );
