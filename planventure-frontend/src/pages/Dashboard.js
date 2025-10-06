@@ -147,17 +147,10 @@ const Dashboard = () => {
             }}
           />
           <Box>
-            <Typography
-              variant="h5"
-              component="h1"
-              gutterBottom
-            >
+            <Typography variant="h5" component="h1" gutterBottom>
               Welcome back, {user?.email_address?.split("@")[0]}!
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="textSecondary"
-            >
+            <Typography variant="subtitle1" color="textSecondary">
               Ready to plan your next adventure?
             </Typography>
           </Box>
@@ -178,7 +171,7 @@ const Dashboard = () => {
           justifyContent="space-between"
           alignItems="center"
           mb={3}
-          style={{ flexDirection: 'column', gap: 16 }}
+          style={{ flexDirection: "column", gap: 16 }}
         >
           <Typography variant="h6" component="h2">
             Your Trips
@@ -205,7 +198,11 @@ const Dashboard = () => {
             <Typography variant="h6" gutterBottom>
               No trips yet
             </Typography>
-            <Typography variant="body2" color="textSecondary" style={{ marginBottom: 24 }}>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              style={{ marginBottom: 24 }}
+            >
               Start planning your first adventure!
             </Typography>
             <Button
@@ -222,37 +219,63 @@ const Dashboard = () => {
           <Grid container spacing={2}>
             {trips.map((trip) => (
               <Grid item xs={12} sm={6} md={4} key={trip.id}>
-                <Card style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <Card
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <CardContent style={{ flexGrow: 1 }}>
                     <Typography variant="h6" component="h3" gutterBottom>
                       {trip.destination}
                     </Typography>
 
                     <Box display="flex" alignItems="center" mb={1}>
-                      <CalendarToday style={{ fontSize: 16, marginRight: 8, color: "#666" }} />
+                      <CalendarToday
+                        style={{ fontSize: 16, marginRight: 8, color: "#666" }}
+                      />
                       <Typography variant="body2" color="textSecondary">
-                        {formatDate(trip.start_date)} - {formatDate(trip.end_date)}
+                        {formatDate(trip.start_date)} -{" "}
+                        {formatDate(trip.end_date)}
                       </Typography>
                     </Box>
 
                     <Chip
-                      label={`${getTripDuration(trip.start_date, trip.end_date)} days`}
+                      label={`${getTripDuration(
+                        trip.start_date,
+                        trip.end_date
+                      )} days`}
                       size="small"
                       style={{ marginBottom: 16 }}
                     />
 
                     {trip.coordinates && (
                       <Box display="flex" alignItems="center">
-                        <LocationOn style={{ fontSize: 16, marginRight: 8, color: "#666" }} />
+                        <LocationOn
+                          style={{
+                            fontSize: 16,
+                            marginRight: 8,
+                            color: "#666",
+                          }}
+                        />
                         <Typography variant="body2" color="textSecondary">
-                          {trip.coordinates.latitude?.toFixed(2)}, {trip.coordinates.longitude?.toFixed(2)}
+                          {trip.coordinates.latitude?.toFixed(2)},{" "}
+                          {trip.coordinates.longitude?.toFixed(2)}
                         </Typography>
                       </Box>
                     )}
                   </CardContent>
 
                   <CardActions style={{ padding: 16 }}>
-                    <Box style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%" }}>
+                    <Box
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                        width: "100%",
+                      }}
+                    >
                       <Button
                         size="small"
                         onClick={() => navigate(`/trips/${trip.id}`)}
@@ -273,7 +296,9 @@ const Dashboard = () => {
                           size="small"
                           color="error"
                           startIcon={<Delete />}
-                          onClick={() => handleDeleteTrip(trip.id, trip.destination)}
+                          onClick={() =>
+                            handleDeleteTrip(trip.id, trip.destination)
+                          }
                           style={{ flex: 1 }}
                         >
                           Delete
@@ -299,79 +324,6 @@ const Dashboard = () => {
           }
         `}
       </style>
-
-      {/* Delete Confirmation Dialog */}
-      <ConfirmDialog
-        open={deleteDialog.open}
-        onClose={handleCloseDeleteDialog}
-        onConfirm={handleConfirmDelete}
-        loading={deleteDialog.loading}
-        title="Delete Trip"
-        message={`Are you sure you want to delete your trip to "${deleteDialog.tripDestination}"? This action cannot be undone.`}
-      />
-    </Container>
-  );
-};
-
-export default Dashboard;
-                    >
-                      <Button
-                        size="small"
-                        onClick={() => navigate(`/trips/${trip.id}`)}
-                        sx={{ flex: 1 }}
-                      >
-                        View Details
-                      </Button>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          gap: 1,
-                          flex: 1,
-                        }}
-                      >
-                        <Button
-                          size="small"
-                          startIcon={<Edit />}
-                          onClick={() => navigate(`/trips/${trip.id}/edit`)}
-                          sx={{ flex: 1 }}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          size="small"
-                          color="error"
-                          startIcon={<Delete />}
-                          onClick={() =>
-                            handleDeleteTrip(trip.id, trip.destination)
-                          }
-                          sx={{ flex: 1 }}
-                        >
-                          Delete
-                        </Button>
-                      </Box>
-                    </Box>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Box>
-
-      {/* Floating Action Button for Mobile */}
-      <Fab
-        color="primary"
-        aria-label="add trip"
-        sx={{
-          position: "fixed",
-          bottom: 16,
-          right: 16,
-          display: { xs: "flex", sm: "none" },
-        }}
-        onClick={() => navigate("/trips/create")}
-      >
-        <Add />
-      </Fab>
 
       {/* Delete Confirmation Dialog */}
       <ConfirmDialog
