@@ -135,13 +135,16 @@ const Dashboard = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2, mb: 2, px: { xs: 1, sm: 3 } }}>
+    <Container
+      maxWidth="lg"
+      sx={{ mt: { xs: 1, sm: 4 }, mb: { xs: 1, sm: 4 } }}
+    >
       {/* Welcome Header */}
-      <Paper sx={{ p: { xs: 2, sm: 3 }, mb: { xs: 2, sm: 4 } }}>
+      <Paper sx={{ p: { xs: 1.5, sm: 3 }, mb: { xs: 2, sm: 4 } }}>
         <Box display="flex" alignItems="center" mb={2}>
           <Flight
             sx={{
-              fontSize: { xs: 30, sm: 40 },
+              fontSize: { xs: 24, sm: 40 },
               color: "primary.main",
               mr: { xs: 1, sm: 2 },
             }}
@@ -152,7 +155,7 @@ const Dashboard = () => {
               component="h1"
               gutterBottom
               sx={{
-                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.125rem" },
+                fontSize: { xs: "1.25rem", sm: "2rem" },
               }}
             >
               Welcome back, {user?.email_address?.split("@")[0]}!
@@ -160,7 +163,7 @@ const Dashboard = () => {
             <Typography
               variant="subtitle1"
               color="textSecondary"
-              sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+              sx={{ fontSize: { xs: "0.75rem", sm: "1rem" } }}
             >
               Ready to plan your next adventure?
             </Typography>
@@ -182,13 +185,15 @@ const Dashboard = () => {
           justifyContent="space-between"
           alignItems="center"
           mb={3}
-          flexDirection={{ xs: "column", sm: "row" }}
-          gap={{ xs: 2, sm: 0 }}
+          sx={{
+            flexDirection: { xs: "column", sm: "row" },
+            gap: { xs: 1, sm: 0 },
+          }}
         >
           <Typography
             variant="h5"
             component="h2"
-            sx={{ fontSize: { xs: "1.25rem", sm: "1.5rem" } }}
+            sx={{ fontSize: { xs: "1.1rem", sm: "1.5rem" } }}
           >
             Your Trips
           </Typography>
@@ -196,8 +201,10 @@ const Dashboard = () => {
             variant="contained"
             startIcon={<Add />}
             onClick={() => navigate("/trips/create")}
-            fullWidth={{ xs: true, sm: false }}
-            sx={{ minWidth: { sm: "auto" } }}
+            sx={{
+              width: { xs: "100%", sm: "auto" },
+              mt: { xs: 1, sm: 0 },
+            }}
           >
             Create New Trip
           </Button>
@@ -212,31 +219,43 @@ const Dashboard = () => {
           /* Empty State */
           <Paper
             sx={{
-              p: 6,
+              p: { xs: 3, sm: 6 },
               textAlign: "center",
               bgcolor: "grey.50",
             }}
           >
-            <Flight sx={{ fontSize: 60, color: "grey.400", mb: 2 }} />
-            <Typography variant="h6" gutterBottom>
+            <Flight
+              sx={{ fontSize: { xs: 40, sm: 60 }, color: "grey.400", mb: 2 }}
+            />
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
+            >
               No trips yet
             </Typography>
-            <Typography variant="body2" color="textSecondary" mb={3}>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              mb={3}
+              sx={{ fontSize: { xs: "0.875rem", sm: "0.875rem" } }}
+            >
               Start planning your first adventure!
             </Typography>
             <Button
               variant="contained"
               startIcon={<Add />}
               onClick={() => navigate("/trips/create")}
+              size="large"
             >
               Create Your First Trip
             </Button>
           </Paper>
         ) : (
           /* Trips Grid */
-          <Grid container spacing={{ xs: 2, sm: 3 }}>
+          <Grid container spacing={2}>
             {trips.map((trip) => (
-              <Grid item xs={12} sm={6} lg={4} key={trip.id}>
+              <Grid item xs={12} sm={6} md={4} key={trip.id}>
                 <Card
                   sx={{
                     height: "100%",
@@ -245,7 +264,7 @@ const Dashboard = () => {
                     "&:hover": { boxShadow: 4 },
                   }}
                 >
-                  <CardContent sx={{ flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+                  <CardContent sx={{ flexGrow: 1 }}>
                     {/* Trip Destination */}
                     <Typography variant="h6" component="h3" gutterBottom>
                       {trip.destination}
@@ -286,48 +305,50 @@ const Dashboard = () => {
                     )}
                   </CardContent>
 
-                  {/* Card Actions */}
-                  <CardActions
-                    sx={{
-                      justifyContent: "space-between",
-                      flexDirection: { xs: "column", sm: "row" },
-                      gap: { xs: 1, sm: 0 },
-                      p: { xs: 2, sm: 1 },
-                    }}
-                  >
-                    <Button
-                      size="small"
-                      onClick={() => navigate(`/trips/${trip.id}`)}
-                      fullWidth={{ xs: true, sm: false }}
-                    >
-                      View Details
-                    </Button>
+                  {/* Card Actions - Simplified for mobile */}
+                  <CardActions sx={{ p: 2 }}>
                     <Box
                       sx={{
                         display: "flex",
+                        flexDirection: { xs: "column", sm: "row" },
                         gap: 1,
-                        width: { xs: "100%", sm: "auto" },
+                        width: "100%",
                       }}
                     >
                       <Button
                         size="small"
-                        startIcon={<Edit />}
-                        onClick={() => navigate(`/trips/${trip.id}/edit`)}
-                        sx={{ flex: { xs: 1, sm: "none" } }}
+                        onClick={() => navigate(`/trips/${trip.id}`)}
+                        sx={{ flex: 1 }}
                       >
-                        Edit
+                        View Details
                       </Button>
-                      <Button
-                        size="small"
-                        color="error"
-                        startIcon={<Delete />}
-                        onClick={() =>
-                          handleDeleteTrip(trip.id, trip.destination)
-                        }
-                        sx={{ flex: { xs: 1, sm: "none" } }}
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: 1,
+                          flex: 1,
+                        }}
                       >
-                        Delete
-                      </Button>
+                        <Button
+                          size="small"
+                          startIcon={<Edit />}
+                          onClick={() => navigate(`/trips/${trip.id}/edit`)}
+                          sx={{ flex: 1 }}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="small"
+                          color="error"
+                          startIcon={<Delete />}
+                          onClick={() =>
+                            handleDeleteTrip(trip.id, trip.destination)
+                          }
+                          sx={{ flex: 1 }}
+                        >
+                          Delete
+                        </Button>
+                      </Box>
                     </Box>
                   </CardActions>
                 </Card>
@@ -343,8 +364,8 @@ const Dashboard = () => {
         aria-label="add trip"
         sx={{
           position: "fixed",
-          bottom: { xs: 16, sm: 24 },
-          right: { xs: 16, sm: 24 },
+          bottom: 16,
+          right: 16,
           display: { xs: "flex", sm: "none" },
         }}
         onClick={() => navigate("/trips/create")}
