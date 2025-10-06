@@ -135,15 +135,15 @@ const Dashboard = () => {
   };
 
   return (
-    <Container maxWidth="lg" style={{ marginTop: 16, marginBottom: 16 }}>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 2, px: { xs: 1, sm: 3 } }}>
       {/* Welcome Header */}
-      <Paper style={{ padding: 16, marginBottom: 16 }}>
+      <Paper sx={{ p: 2, mb: 3 }}>
         <Box display="flex" alignItems="center" mb={2}>
           <Flight
-            style={{
+            sx={{
               fontSize: 32,
-              color: "#1976d2",
-              marginRight: 16,
+              color: "primary.main",
+              mr: 2,
             }}
           />
           <Box>
@@ -159,7 +159,7 @@ const Dashboard = () => {
 
       {/* Error Alert */}
       {error && (
-        <Alert severity="error" style={{ marginBottom: 24 }}>
+        <Alert severity="error" sx={{ mb: 3 }}>
           {error}
         </Alert>
       )}
@@ -171,7 +171,10 @@ const Dashboard = () => {
           justifyContent="space-between"
           alignItems="center"
           mb={3}
-          style={{ flexDirection: "column", gap: 16 }}
+          sx={{
+            flexDirection: { xs: "column", sm: "row" },
+            gap: { xs: 2, sm: 0 },
+          }}
         >
           <Typography variant="h6" component="h2">
             Your Trips
@@ -180,7 +183,7 @@ const Dashboard = () => {
             variant="contained"
             startIcon={<Add />}
             onClick={() => navigate("/trips/create")}
-            fullWidth
+            sx={{ width: { xs: "100%", sm: "auto" } }}
           >
             Create New Trip
           </Button>
@@ -193,16 +196,12 @@ const Dashboard = () => {
           </Box>
         ) : trips.length === 0 ? (
           /* Empty State */
-          <Paper style={{ padding: 24, textAlign: "center" }}>
-            <Flight style={{ fontSize: 48, color: "#999", marginBottom: 16 }} />
+          <Paper sx={{ p: 4, textAlign: "center", bgcolor: "grey.50" }}>
+            <Flight sx={{ fontSize: 48, color: "grey.400", mb: 2 }} />
             <Typography variant="h6" gutterBottom>
               No trips yet
             </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              style={{ marginBottom: 24 }}
-            >
+            <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
               Start planning your first adventure!
             </Typography>
             <Button
@@ -220,20 +219,21 @@ const Dashboard = () => {
             {trips.map((trip) => (
               <Grid item xs={12} sm={6} md={4} key={trip.id}>
                 <Card
-                  style={{
+                  sx={{
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
+                    "&:hover": { boxShadow: 4 },
                   }}
                 >
-                  <CardContent style={{ flexGrow: 1 }}>
+                  <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="h6" component="h3" gutterBottom>
                       {trip.destination}
                     </Typography>
 
                     <Box display="flex" alignItems="center" mb={1}>
                       <CalendarToday
-                        style={{ fontSize: 16, marginRight: 8, color: "#666" }}
+                        sx={{ fontSize: 16, mr: 1, color: "grey.600" }}
                       />
                       <Typography variant="body2" color="textSecondary">
                         {formatDate(trip.start_date)} -{" "}
@@ -247,17 +247,13 @@ const Dashboard = () => {
                         trip.end_date
                       )} days`}
                       size="small"
-                      style={{ marginBottom: 16 }}
+                      sx={{ mb: 2 }}
                     />
 
                     {trip.coordinates && (
                       <Box display="flex" alignItems="center">
                         <LocationOn
-                          style={{
-                            fontSize: 16,
-                            marginRight: 8,
-                            color: "#666",
-                          }}
+                          sx={{ fontSize: 16, mr: 1, color: "grey.600" }}
                         />
                         <Typography variant="body2" color="textSecondary">
                           {trip.coordinates.latitude?.toFixed(2)},{" "}
@@ -267,28 +263,28 @@ const Dashboard = () => {
                     )}
                   </CardContent>
 
-                  <CardActions style={{ padding: 16 }}>
+                  <CardActions sx={{ p: 2 }}>
                     <Box
-                      style={{
+                      sx={{
                         display: "flex",
-                        flexDirection: "column",
-                        gap: 8,
+                        flexDirection: { xs: "column", sm: "row" },
+                        gap: 1,
                         width: "100%",
                       }}
                     >
                       <Button
                         size="small"
                         onClick={() => navigate(`/trips/${trip.id}`)}
-                        fullWidth
+                        sx={{ width: { xs: "100%", sm: "auto" } }}
                       >
                         View Details
                       </Button>
-                      <Box style={{ display: "flex", gap: 8 }}>
+                      <Box sx={{ display: "flex", gap: 1, flex: 1 }}>
                         <Button
                           size="small"
                           startIcon={<Edit />}
                           onClick={() => navigate(`/trips/${trip.id}/edit`)}
-                          style={{ flex: 1 }}
+                          sx={{ flex: 1 }}
                         >
                           Edit
                         </Button>
@@ -299,7 +295,7 @@ const Dashboard = () => {
                           onClick={() =>
                             handleDeleteTrip(trip.id, trip.destination)
                           }
-                          style={{ flex: 1 }}
+                          sx={{ flex: 1 }}
                         >
                           Delete
                         </Button>
@@ -312,18 +308,6 @@ const Dashboard = () => {
           </Grid>
         )}
       </Box>
-
-      {/* Floating Action Button for Mobile - Hidden for now */}
-      <style>
-        {`
-          @media (max-width: 600px) {
-            .MuiContainer-root {
-              padding-left: 8px !important;
-              padding-right: 8px !important;
-            }
-          }
-        `}
-      </style>
 
       {/* Delete Confirmation Dialog */}
       <ConfirmDialog
