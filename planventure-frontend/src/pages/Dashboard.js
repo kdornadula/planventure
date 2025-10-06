@@ -135,35 +135,28 @@ const Dashboard = () => {
   };
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ mt: { xs: 1, sm: 4 }, mb: { xs: 1, sm: 4 } }}
-    >
+    <Container maxWidth="lg" style={{ marginTop: 16, marginBottom: 16 }}>
       {/* Welcome Header */}
-      <Paper sx={{ p: { xs: 1.5, sm: 3 }, mb: { xs: 2, sm: 4 } }}>
+      <Paper style={{ padding: 16, marginBottom: 16 }}>
         <Box display="flex" alignItems="center" mb={2}>
           <Flight
-            sx={{
-              fontSize: { xs: 24, sm: 40 },
-              color: "primary.main",
-              mr: { xs: 1, sm: 2 },
+            style={{
+              fontSize: 32,
+              color: "#1976d2",
+              marginRight: 16,
             }}
           />
           <Box>
             <Typography
-              variant="h4"
+              variant="h5"
               component="h1"
               gutterBottom
-              sx={{
-                fontSize: { xs: "1.25rem", sm: "2rem" },
-              }}
             >
               Welcome back, {user?.email_address?.split("@")[0]}!
             </Typography>
             <Typography
               variant="subtitle1"
               color="textSecondary"
-              sx={{ fontSize: { xs: "0.75rem", sm: "1rem" } }}
             >
               Ready to plan your next adventure?
             </Typography>
@@ -173,7 +166,7 @@ const Dashboard = () => {
 
       {/* Error Alert */}
       {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
+        <Alert severity="error" style={{ marginBottom: 24 }}>
           {error}
         </Alert>
       )}
@@ -185,26 +178,16 @@ const Dashboard = () => {
           justifyContent="space-between"
           alignItems="center"
           mb={3}
-          sx={{
-            flexDirection: { xs: "column", sm: "row" },
-            gap: { xs: 1, sm: 0 },
-          }}
+          style={{ flexDirection: 'column', gap: 16 }}
         >
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ fontSize: { xs: "1.1rem", sm: "1.5rem" } }}
-          >
+          <Typography variant="h6" component="h2">
             Your Trips
           </Typography>
           <Button
             variant="contained"
             startIcon={<Add />}
             onClick={() => navigate("/trips/create")}
-            sx={{
-              width: { xs: "100%", sm: "auto" },
-              mt: { xs: 1, sm: 0 },
-            }}
+            fullWidth
           >
             Create New Trip
           </Button>
@@ -217,29 +200,12 @@ const Dashboard = () => {
           </Box>
         ) : trips.length === 0 ? (
           /* Empty State */
-          <Paper
-            sx={{
-              p: { xs: 3, sm: 6 },
-              textAlign: "center",
-              bgcolor: "grey.50",
-            }}
-          >
-            <Flight
-              sx={{ fontSize: { xs: 40, sm: 60 }, color: "grey.400", mb: 2 }}
-            />
-            <Typography
-              variant="h6"
-              gutterBottom
-              sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
-            >
+          <Paper style={{ padding: 24, textAlign: "center" }}>
+            <Flight style={{ fontSize: 48, color: "#999", marginBottom: 16 }} />
+            <Typography variant="h6" gutterBottom>
               No trips yet
             </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              mb={3}
-              sx={{ fontSize: { xs: "0.875rem", sm: "0.875rem" } }}
-            >
+            <Typography variant="body2" color="textSecondary" style={{ marginBottom: 24 }}>
               Start planning your first adventure!
             </Typography>
             <Button
@@ -256,64 +222,98 @@ const Dashboard = () => {
           <Grid container spacing={2}>
             {trips.map((trip) => (
               <Grid item xs={12} sm={6} md={4} key={trip.id}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    "&:hover": { boxShadow: 4 },
-                  }}
-                >
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    {/* Trip Destination */}
+                <Card style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                  <CardContent style={{ flexGrow: 1 }}>
                     <Typography variant="h6" component="h3" gutterBottom>
                       {trip.destination}
                     </Typography>
 
-                    {/* Trip Dates */}
                     <Box display="flex" alignItems="center" mb={1}>
-                      <CalendarToday
-                        sx={{ fontSize: 16, mr: 1, color: "grey.600" }}
-                      />
+                      <CalendarToday style={{ fontSize: 16, marginRight: 8, color: "#666" }} />
                       <Typography variant="body2" color="textSecondary">
-                        {formatDate(trip.start_date)} -{" "}
-                        {formatDate(trip.end_date)}
+                        {formatDate(trip.start_date)} - {formatDate(trip.end_date)}
                       </Typography>
                     </Box>
 
-                    {/* Trip Duration */}
                     <Chip
-                      label={`${getTripDuration(
-                        trip.start_date,
-                        trip.end_date
-                      )} days`}
+                      label={`${getTripDuration(trip.start_date, trip.end_date)} days`}
                       size="small"
-                      sx={{ mb: 2 }}
+                      style={{ marginBottom: 16 }}
                     />
 
-                    {/* Coordinates if available */}
                     {trip.coordinates && (
                       <Box display="flex" alignItems="center">
-                        <LocationOn
-                          sx={{ fontSize: 16, mr: 1, color: "grey.600" }}
-                        />
+                        <LocationOn style={{ fontSize: 16, marginRight: 8, color: "#666" }} />
                         <Typography variant="body2" color="textSecondary">
-                          {trip.coordinates.latitude?.toFixed(2)},{" "}
-                          {trip.coordinates.longitude?.toFixed(2)}
+                          {trip.coordinates.latitude?.toFixed(2)}, {trip.coordinates.longitude?.toFixed(2)}
                         </Typography>
                       </Box>
                     )}
                   </CardContent>
 
-                  {/* Card Actions - Simplified for mobile */}
-                  <CardActions sx={{ p: 2 }}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: { xs: "column", sm: "row" },
-                        gap: 1,
-                        width: "100%",
-                      }}
+                  <CardActions style={{ padding: 16 }}>
+                    <Box style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%" }}>
+                      <Button
+                        size="small"
+                        onClick={() => navigate(`/trips/${trip.id}`)}
+                        fullWidth
+                      >
+                        View Details
+                      </Button>
+                      <Box style={{ display: "flex", gap: 8 }}>
+                        <Button
+                          size="small"
+                          startIcon={<Edit />}
+                          onClick={() => navigate(`/trips/${trip.id}/edit`)}
+                          style={{ flex: 1 }}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="small"
+                          color="error"
+                          startIcon={<Delete />}
+                          onClick={() => handleDeleteTrip(trip.id, trip.destination)}
+                          style={{ flex: 1 }}
+                        >
+                          Delete
+                        </Button>
+                      </Box>
+                    </Box>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Box>
+
+      {/* Floating Action Button for Mobile - Hidden for now */}
+      <style>
+        {`
+          @media (max-width: 600px) {
+            .MuiContainer-root {
+              padding-left: 8px !important;
+              padding-right: 8px !important;
+            }
+          }
+        `}
+      </style>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        open={deleteDialog.open}
+        onClose={handleCloseDeleteDialog}
+        onConfirm={handleConfirmDelete}
+        loading={deleteDialog.loading}
+        title="Delete Trip"
+        message={`Are you sure you want to delete your trip to "${deleteDialog.tripDestination}"? This action cannot be undone.`}
+      />
+    </Container>
+  );
+};
+
+export default Dashboard;
                     >
                       <Button
                         size="small"
